@@ -14,11 +14,17 @@ configureDB();
 
 
 
-app.use("/api",routes);
 
-app.use("/status",(req,res)=>{
-   return res.status(200).json({"status":"200","message":"this is it!!"});
+
+
+app.use(routes);
+
+
+app.get("/status",(req,res)=>{
+   return res.status(200).json({status:200,message:"this is it!!"});
 })
+
+
 
 app.use(function (req, res, next) {
     let err = new Error("No Matching Route Please Check Again...!!");

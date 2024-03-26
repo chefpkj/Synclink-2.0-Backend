@@ -7,12 +7,6 @@ router.post("/login", controller.login);
 router.post("/signup", controller.signup);
 
 
-router.get("/check",(req,res)=>{
-  return res.status(200).send({
-    status:200,
-    message:"this is message!!"
-  })
-})
 
 
 

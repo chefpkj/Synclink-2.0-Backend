@@ -5,30 +5,48 @@ import isValid from "../utils/loginBodyValidation.js";
 const login = async (req, res) => {
   const { error } = isValid(req.body);
   if (error) {
-    return res.status(400).send(error.details[0].message);
+    return res.status(400).json({status:400,message:error.details[0].message});
   }
   const result = await DbLayer.login(req.body);
   if (result?.status === 200) {
     //apna success logic likho
     // return res.header('x-auth-token',"piyush").send("Success");
-    return res.status(result?.status).header('x-auth-token',result?.message).send(result?.message);
+    return res.status(result?.status).header('x-auth-token',result?.message).json({
+      status:200,
+      message:"Login Successful!!",
+      token:result?.message
+    });
   } else {
-    return res.status(result?.status).send(result?.message);
+    return res.status(result?.status).json({status:result?.status,message:result?.message});
   }
 };
+
+
 const signup = async (req, res) => {
   try {
     const { error } = isValid(req.body);
     if (error) {
-      return res.status(400).send(error.details[0].message);
+      return res.status(400).json({
+        status:400,
+        message:error.details[0].message
+      });
     }
     const result = await createUser(req.body?.email, req.body?.password);
     if (result.status === 400) {
-      return res.status(400).send(result?.details);     
+      return res.status(400).json({
+        status:400,
+        message:result?.details
+      });     
     }
-    return res.status(200).send(`Congratulations, your account has been successfully created.`);
+    return res.status(200).json({
+      status:200,
+      message:`Congratulations, your account has been successfully created.`
+    })
   } catch (err) {
-    return res.status(400).send("Something went wrong :(");
+    return res.status(400).json({
+      status:400,
+      message:"Something went wrong :("
+    });
   }
 };
 

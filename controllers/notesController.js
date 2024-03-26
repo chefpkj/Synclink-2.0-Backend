@@ -56,7 +56,7 @@ const deleteNotes = async (req, res) => {
     notesId: req.params?.id,
   });
   if (result?.status === 200) {
-    return res.status(200).send(result?.details);
+    return res.status(200).json({status:200,message:result?.details});
   } else {
     return res.status(result?.status).send(result?.details);
   }

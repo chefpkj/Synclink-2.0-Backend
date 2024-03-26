@@ -5,18 +5,18 @@ const router = express.Router();
 
 
 router
-  .route("/")
+  .route("/notes")
   .get(jwtControls.authorizeToken, notesController.getAllNotes)
   .post(jwtControls.authorizeToken, notesController.addNotes);
 
 router
-  .route("/:id")
+  .route("/note/:id")
   .get(jwtControls.authorizeToken, notesController.getSpecificNotes)
   .put(jwtControls.authorizeToken, notesController.updateNotes)
   .delete(jwtControls.authorizeToken, notesController.deleteNotes);
 
 router
-  .route("/:id/share")
+  .route("/api/:id/share")
   .post(jwtControls.authorizeToken, notesController.shareNotes);
 
 router
